@@ -16,9 +16,6 @@
     <!-- Toolbar -->
     <div class="status-bar">
         <div>Training App</div>
-        <button id="loadJsonButton" class="load-json-button hidden">
-            <i class="fas fa-cog"></i>
-        </button>
     </div>
 
     <!-- Login -->
@@ -107,19 +104,35 @@
             </div>
         </div>
 
+        <div id="settingsScreen" class="screen" style="display: none;">
+            <div class="card">
+                <h2>Ajustes</h2>
+                <div class="settings-content">
+                    <button id="loadJsonButton" class="settings-button">Cargar Entrenamientos</button>
+                    <button id="deleteAllButton" class="settings-button">Eliminar Todos los Entrenamientos</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Floating Add Button -->
         <div id="addTrainingButton" class="add-button" onclick="openModal()">+</div>
 
         <!-- Bottom Toolbar -->
         <div class="bottom-toolbar">
             <button id="calendarTab" class="active" onclick="showScreen('calendarScreen', 'calendarTab')">
-                <i class="fas fa-calendar-alt"></i> Calendario
+                <i class="fas fa-calendar-alt"></i>
             </button>
             <button id="statsTab" onclick="showScreen('statsScreen', 'statsTab')">
-                <i class="fas fa-chart-bar"></i> Estadísticas
+                <i class="fas fa-chart-bar"></i>
+            </button>
+            <button id="settingsTab" onclick="showScreen('settingsScreen', 'settingsTab')">
+                <i class="fas fa-cog"></i>
             </button>
         </div>
     </div>
+
+    <!-- Toast Message -->
+    <div id="toast" class="toast"></div>
 
     <!-- Modal -->
     <div id="addTrainingModal" class="modal">

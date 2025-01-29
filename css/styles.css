@@ -417,7 +417,7 @@ button:hover {
 /* Add Training Button */
 .add-button {
     position: fixed;
-    bottom: 50px;
+    bottom: 60px;
     right: 24px;
     width: 56px;
     height: 56px;
@@ -511,21 +511,21 @@ button:hover {
     justify-content: space-around;
     background-color: var(--background-color);
     padding: 0;
-    z-index: 1000; /* Asegura que el toolbar esté siempre encima */
+    z-index: 1000;
+    border-top: 2px solid var(--primary-color);
 }
 
 .bottom-toolbar button {
     background: none;
     border: none;
     color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-    font-size: 16px;
+    font-size: 24px; /* Aumenta el tamaño del icono */
     cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 0px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    border-radius: 0;
 }
 
 .bottom-toolbar button:hover {
@@ -578,4 +578,49 @@ button:hover {
 .training-type {
     color: white;
     font-weight: bold;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s;
+}
+
+.settings-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    margin: 0 auto;
+    background-color: #4CAF50; /* Fondo verde */
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: fixed;
+    z-index: 1;
+    width: 90%;
+    left: 5%;
+    top: 20px; /* Mostrar en la parte superior */
+    font-size: 15px;
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
 }
