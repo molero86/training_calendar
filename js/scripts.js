@@ -525,3 +525,69 @@ function autoLogin(username, password) {
         document.getElementById('appContainer').style.display = 'block';
     }
 }
+
+document.getElementById('logoutButton').addEventListener('click', function() {
+    localStorage.removeItem('savedUsername');
+    localStorage.removeItem('savedPassword');
+    showToast('Sesión cerrada correctamente', 'success');
+    document.getElementById('appContainer').style.display = 'none';
+    document.getElementById('loginContainer').style.display = 'flex';
+});
+
+document.getElementById('loadJsonButton').addEventListener('click', function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const importedTrainings = JSON.parse(e.target.result);
+                trainings = [...trainings, ...importedTrainings];
+                saveTrainings();
+                renderCalendar();
+                renderTrainingList();
+                calculateStatistics();
+                showToast('Entrenamientos cargados correctamente', 'success');
+            };
+            reader.readAsText(file);
+        }
+    };
+    input.click();
+});
+
+document.getElementById('deleteAllButton').addEventListener('click', function() {
+    if (confirm('¿Estás seguro de que deseas eliminar todos los entrenamientos?')) {
+        trainings = [];
+        saveTrainings();
+        renderCalendar();
+        renderTrainingList();
+        calculateStatistics();
+        showToast('Todos los entrenamientos han sido eliminados', 'success');
+    }
+});
+
+function showScreen(screenId, tabId) {
+    document.getElementById('calendarScreen').style.display = 'none';
+    document.getElementById('statsScreen').style.display = 'none';
+    document.getElementById('settingsScreen').style.display = 'none';
+    document.getElementById(screenId).style.display = 'block';
+
+    document.getElementById('calendarTab').classList.remove('active');
+    document.getElementById('statsTab').classList.remove('active');
+    document.getElementById('settingsTab').classList.remove('active');
+    document.getElementById(tabId).classList.add('active');
+
+    // Mostrar u ocultar el botón para añadir entrenamiento
+    if (screenId === 'calendarScreen') {
+        document.getElementById('addTrainingButton').style.display = 'flex';
+    } else {
+        document.getElementById('addTrainingButton').style.display = 'none';
+    }
+
+    // Calcular estadísticas si se muestra la pantalla de estadísticas
+    if (screenId === 'statsScreen') {
+        calculateStatistics();
+    }
+}
