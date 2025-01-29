@@ -25,19 +25,15 @@ function saveTrainings() {
 }
 
 // Función para añadir un nuevo entrenamiento
-function addTraining(training) {
-    trainings.push(training);
+function addTraining(newTraining) {
+    trainings.push(newTraining);
     saveTrainings();
-    renderCalendar();
-    renderTrainingList();
 }
 
 // Función para actualizar un entrenamiento existente
 function updateTraining(updatedTraining) {
     trainings = trainings.map(training => training.id === updatedTraining.id ? updatedTraining : training);
     saveTrainings();
-    renderCalendar();
-    renderTrainingList();
 }
 
 // Función para generar las opciones del select
@@ -95,8 +91,6 @@ function renderCalendar() {
 
         const date = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
         const dayTrainings = trainings.filter(t => t.date === date);
-        console.log("DayTrainings for " + date + ": ");
-        console.log(dayTrainings);
 
         dayTrainings.forEach(training => {
             const trainingElement = document.createElement('div');
@@ -120,10 +114,8 @@ function renderCalendar() {
     }
 
     const lastDayOfTheMonth = new Date(currentYear, currentMonth + 1, 0).getDay(); // 0 = Sunday, 1 = Monday, etc.
-    console.log("LastDayOfTheMonth: " + lastDayOfTheMonth);
     // Ajustar el primer día de la semana para que empiece en lunes
     const adjustedLastDay = (lastDayOfTheMonth === 0) ? 0 : 7 - lastDayOfTheMonth;
-    console.log("AdjustedLastDay: " + adjustedLastDay);
 
     // Añadir días vacíos al principio del mes
     for (let i = 0; i < adjustedLastDay; i++) {
@@ -212,32 +204,25 @@ function renderTrainingList() {
     });
 }
 
+let editingTrainingId = null;
+
 function openEditModal(training) {
     const modal = document.getElementById('addTrainingModal');
     const trainingDateInput = document.getElementById('trainingDate');
     const trainingTitleInput = document.getElementById('trainingTitle');
     const trainingDescriptionInput = document.getElementById('trainingDescription');
     const trainingTypeSelect = document.getElementById('trainingType');
+    const trainingDurationInput = document.getElementById('trainingDuration');
 
     trainingDateInput.value = training.date;
     trainingTitleInput.value = training.title;
     trainingDescriptionInput.value = training.description;
     trainingTypeSelect.value = training.type;
+    trainingDurationInput.value = training.duration;
+
+    editingTrainingId = training.id;
 
     modal.style.display = 'block';
-
-    document.getElementById('addTrainingForm').onsubmit = function(e) {
-        e.preventDefault();
-        const updatedTraining = {
-            ...training,
-            title: trainingTitleInput.value,
-            date: trainingDateInput.value,
-            type: trainingTypeSelect.value,
-            description: trainingDescriptionInput.value
-        };
-        updateTraining(updatedTraining);
-        closeModal();
-    };
 }
 
 // Funciones de gestión de entrenamientos
@@ -264,27 +249,17 @@ function openModal(date) {
     const trainingTitleInput = document.getElementById('trainingTitle');
     const trainingDescriptionInput = document.getElementById('trainingDescription');
     const trainingTypeSelect = document.getElementById('trainingType');
+    const trainingDurationInput = document.getElementById('trainingDuration');
 
     trainingDateInput.value = date || '';
     trainingTitleInput.value = '';
     trainingDescriptionInput.value = '';
     trainingTypeSelect.value = '';
+    trainingDurationInput.value = '';
+
+    editingTrainingId = null;
 
     modal.style.display = 'block';
-
-    document.getElementById('addTrainingForm').onsubmit = function(e) {
-        e.preventDefault();
-        const newTraining = {
-            id: Date.now(),
-            title: trainingTitleInput.value,
-            date: trainingDateInput.value,
-            type: trainingTypeSelect.value,
-            completed: false,
-            description: trainingDescriptionInput.value
-        };
-        addTraining(newTraining);
-        closeModal();
-    };
 }
 
 function closeModal() {
@@ -295,16 +270,33 @@ function closeModal() {
 document.getElementById('addTrainingForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const newTraining = {
-        id: trainings.length + 1,
-        title: document.getElementById('trainingTitle').value,
-        date: document.getElementById('trainingDate').value,
-        type: document.getElementById('trainingType').value,
-        description: document.getElementById('trainingDescription').value,
-        completed: false
-    };
+    if (editingTrainingId) {
+        const updatedTraining = {
+            id: editingTrainingId,
+            title: document.getElementById('trainingTitle').value,
+            date: document.getElementById('trainingDate').value,
+            type: document.getElementById('trainingType').value,
+            description: document.getElementById('trainingDescription').value,
+            duration: document.getElementById('trainingDuration').value,
+            completed: trainings.find(t => t.id === editingTrainingId).completed
+        };
+        updateTraining(updatedTraining);
+    }
+    else {
 
-    trainings.push(newTraining);
+        const newTraining = {
+            id: trainings.length + 1,
+            title: document.getElementById('trainingTitle').value,
+            date: document.getElementById('trainingDate').value,
+            type: document.getElementById('trainingType').value,
+            description: document.getElementById('trainingDescription').value,
+            duration: document.getElementById('trainingDuration').value,
+            completed: false
+        };
+        
+        addTraining(newTraining);
+    }
+
     renderCalendar();
     renderTrainingList();
     closeModal();
@@ -323,6 +315,7 @@ window.onclick = function(event) {
 document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     renderTrainingList();
+    calculateStatistics();
 });
 
 document.getElementById('loadJsonButton').addEventListener('click', function() {
@@ -335,13 +328,7 @@ document.getElementById('loadJsonButton').addEventListener('click', function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const importedTrainings = JSON.parse(e.target.result);
-                console.log("Imported: ");
-                console.log(importedTrainings);
-                console.log("Trainings: ");
-                console.log(trainings);
                 trainings = [...trainings, ...importedTrainings];
-                console.log("Trainings after import: ");
-                console.log(trainings);
                 saveTrainings();
                 renderCalendar();
                 renderTrainingList();
@@ -350,4 +337,95 @@ document.getElementById('loadJsonButton').addEventListener('click', function() {
         }
     };
     input.click();
+});
+
+function showScreen(screenId, tabId) {
+    document.getElementById('calendarScreen').style.display = 'none';
+    document.getElementById('statsScreen').style.display = 'none';
+    document.getElementById(screenId).style.display = 'block';
+
+    document.getElementById('calendarTab').classList.remove('active');
+    document.getElementById('statsTab').classList.remove('active');
+    document.getElementById(tabId).classList.add('active');
+
+    // Mostrar u ocultar el botón para añadir entrenamiento
+    if (screenId === 'calendarScreen') {
+        document.getElementById('addTrainingButton').style.display = 'flex';
+    } else {
+        document.getElementById('addTrainingButton').style.display = 'none';
+    }
+
+    // Calcular estadísticas si se muestra la pantalla de estadísticas
+    if (screenId === 'statsScreen') {
+        calculateStatistics();
+    }
+}
+
+function calculateStatistics() {
+    const totalTrainings = trainings.length;
+    const completedTrainings = trainings.filter(training => training.completed).length;
+
+    const trainingsByType = trainings.reduce((acc, training) => {
+        acc[training.type] = acc[training.type] || { total: 0, completed: 0 };
+        acc[training.type].total += 1;
+        if (training.completed) {
+            acc[training.type].completed += 1;
+        }
+        return acc;
+    }, {});
+
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const trainingsByMonth = trainings.reduce((acc, training) => {
+        const month = new Date(training.date).getMonth();
+        acc[month] = acc[month] || { total: 0, completed: 0 };
+        acc[month].total += 1;
+        if (training.completed) {
+            acc[month].completed += 1;
+        }
+        return acc;
+    }, {});
+
+    const totalCompletedDuration = trainings.reduce((acc, training) => {
+        return acc + (training.completed ? parseFloat(training.duration || 0) : 0);
+    }, 0);
+
+    const averageDuration = (totalCompletedDuration / completedTrainings).toFixed(2);
+
+    const weeks = new Set(trainings.map(training => {
+        const date = new Date(training.date);
+        const startOfYear = new Date(date.getFullYear(), 0, 1);
+        const weekNumber = Math.ceil((((date - startOfYear) / 86400000) + startOfYear.getDay() + 1) / 7);
+        return `${date.getFullYear()}-W${weekNumber}`;
+    })).size;
+
+    const averageTrainingsPerWeek = (totalTrainings / weeks).toFixed(2);
+
+    document.getElementById('totalTrainings').textContent = `${completedTrainings} / ${totalTrainings}`;
+    document.getElementById('trainingsByType').innerHTML = Object.entries(trainingsByType)
+        .map(([type, counts]) => `<li class="training-type" style="background-color: ${getTypeColor(type)}">${capitalize(type)}: ${counts.completed} / ${counts.total}</li>`).join('');
+    document.getElementById('trainingsByMonth').innerHTML = Object.entries(trainingsByMonth)
+        .map(([month, counts]) => `<li>${monthNames[month]}: ${counts.completed} / ${counts.total}</li>`).join('');
+    document.getElementById('totalDuration').textContent = `${totalCompletedDuration.toFixed(2)} horas`;
+    document.getElementById('averageDuration').textContent = `${averageDuration} horas`;
+    document.getElementById('averageTrainingsPerWeek').textContent = averageTrainingsPerWeek;
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getTypeColor(type) {
+    const colors = {
+        "cardio": "#ff9999",
+        "fuerza": "#99ccff",
+        "flexibilidad": "#99ff99"
+        // Añade más tipos y colores según sea necesario
+    };
+    return colors[type.toLowerCase()] || "#cccccc";
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderCalendar();
+    renderTrainingList();
+    calculateStatistics();
 });

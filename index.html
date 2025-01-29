@@ -42,39 +42,83 @@
 
     <!-- Main App -->
     <div id="appContainer" class="container" style="display: none;">
-        <div class="grid-container">
-            <!-- Calendar -->
-            <div class="card">
-                <div class="calendar-header">
-                    <button onclick="prevMonth()">&#9664;</button>
-                    <h2 id="calendarMonth">Enero 2025</h2>
-                    <button onclick="nextMonth()">&#9654;</button>
+        <div id="calendarScreen" class="screen">
+            <div class="grid-container">
+                <!-- Calendar -->
+                <div class="card">
+                    <div class="calendar-header">
+                        <button onclick="prevMonth()">&#9664;</button>
+                        <h2 id="calendarMonth">Enero 2025</h2>
+                        <button onclick="nextMonth()">&#9654;</button>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <div>Lun</div>
+                        <div>Mar</div>
+                        <div>Mié</div>
+                        <div>Jue</div>
+                        <div>Vie</div>
+                        <div>Sáb</div>
+                        <div>Dom</div>
+                    </div>
+                    <div id="calendar" class="calendar">
+                        <!-- Calendar days will be generated here -->
+                    </div>
                 </div>
-                <div class="calendar-weekdays">
-                    <div>Lun</div>
-                    <div>Mar</div>
-                    <div>Mié</div>
-                    <div>Jue</div>
-                    <div>Vie</div>
-                    <div>Sáb</div>
-                    <div>Dom</div>
-                </div>
-                <div id="calendar" class="calendar">
-                    <!-- Calendar days will be generated here -->
+
+                <!-- Training List -->
+                <div class="card">
+                    <h2>Entrenamientos</h2>
+                    <div id="trainingList" class="training-list">
+                        <!-- Training items will be generated here -->
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Training List -->
+        <div id="statsScreen" class="screen" style="display: none;">
             <div class="card">
-                <h2>Entrenamientos</h2>
-                <div id="trainingList" class="training-list">
-                    <!-- Training items will be generated here -->
+                <h2>Estadísticas de Entrenamientos</h2>
+                <div id="statsContent">
+                    <div class="stat-item">
+                        <p>Total de Entrenamientos:</p>
+                        <span id="totalTrainings" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <p>Entrenamientos por Tipo:</p>
+                        <ul id="trainingsByType" class="stat-list"></ul>
+                    </div>
+                    <div class="stat-item">
+                        <p>Entrenamientos por Mes:</p>
+                        <ul id="trainingsByMonth" class="stat-list"></ul>
+                    </div>
+                    <div class="stat-item">
+                        <p>Duración Total de Entrenamientos:</p>
+                        <span id="totalDuration" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <p>Duración Media de Entrenamientos:</p>
+                        <span id="averageDuration" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <p>Promedio de Entrenamientos por Semana:</p>
+                        <span id="averageTrainingsPerWeek" class="stat-value"></span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Floating Add Button -->
-        <div class="add-button" onclick="openModal()">+</div>
+        <div id="addTrainingButton" class="add-button" onclick="openModal()">+</div>
+
+        <!-- Bottom Toolbar -->
+        <div class="bottom-toolbar">
+            <button id="calendarTab" class="active" onclick="showScreen('calendarScreen', 'calendarTab')">
+                <i class="fas fa-calendar-alt"></i> Calendario
+            </button>
+            <button id="statsTab" onclick="showScreen('statsScreen', 'statsTab')">
+                <i class="fas fa-chart-bar"></i> Estadísticas
+            </button>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -95,6 +139,9 @@
                     <select id="trainingType" required>
                         <!-- Las opciones se generarán dinámicamente -->
                     </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" step="0.1" id="trainingDuration" placeholder="Duración (h)" required>
                 </div>
                 <div class="form-group">
                     <textarea id="trainingDescription" placeholder="Descripción" rows="3"></textarea>

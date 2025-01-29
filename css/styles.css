@@ -30,6 +30,7 @@ body {
     max-width: 100%; /* Asegura que no se exceda el ancho de la pantalla */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
     overflow: hidden; /* Evita que el contenido se desborde */
+    margin-bottom: 60px; /* Ajusta este valor según la altura del toolbar */
 }
 
 .grid-container {
@@ -416,7 +417,7 @@ button:hover {
 /* Add Training Button */
 .add-button {
     position: fixed;
-    bottom: 24px;
+    bottom: 50px;
     right: 24px;
     width: 56px;
     height: 56px;
@@ -499,4 +500,82 @@ button:hover {
 
 .update-notification button:hover {
     background-color: #f1f1f1;
+}
+
+.bottom-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--background-color);
+    padding: 0;
+    z-index: 1000; /* Asegura que el toolbar esté siempre encima */
+}
+
+.bottom-toolbar button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bottom-toolbar button:hover {
+    background-color: var(--primary-dark);
+}
+
+.bottom-toolbar button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.screen {
+    display: none;
+}
+
+#calendarScreen {
+    display: block;
+}
+
+.stat-item {
+    margin-bottom: 20px;
+}
+
+.stat-item p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.stat-list li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.training-type {
+    color: white;
+    font-weight: bold;
 }
