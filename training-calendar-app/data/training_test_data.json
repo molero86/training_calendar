@@ -1,0 +1,352 @@
+[
+    {
+        "id": 1,
+        "title": "Entrenamiento 1",
+        "date": "2025-01-01",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 1"
+    },
+    {
+        "id": 2,
+        "title": "Entrenamiento 2",
+        "date": "2025-01-02",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 2"
+    },
+    {
+        "id": 3,
+        "title": "Entrenamiento 3",
+        "date": "2025-01-03",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 3"
+    },
+    {
+        "id": 4,
+        "title": "Entrenamiento 4",
+        "date": "2025-01-04",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 4"
+    },
+    {
+        "id": 5,
+        "title": "Entrenamiento 5",
+        "date": "2025-01-05",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 5"
+    },
+    {
+        "id": 6,
+        "title": "Entrenamiento 6",
+        "date": "2025-01-06",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 6"
+    },
+    {
+        "id": 7,
+        "title": "Entrenamiento 7",
+        "date": "2025-01-07",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 7"
+    },
+    {
+        "id": 8,
+        "title": "Entrenamiento 8",
+        "date": "2025-01-08",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 8"
+    },
+    {
+        "id": 9,
+        "title": "Entrenamiento 9",
+        "date": "2025-01-09",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 9"
+    },
+    {
+        "id": 10,
+        "title": "Entrenamiento 10",
+        "date": "2025-01-10",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 10"
+    },
+    {
+        "id": 11,
+        "title": "Entrenamiento 11",
+        "date": "2025-01-11",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 11"
+    },
+    {
+        "id": 12,
+        "title": "Entrenamiento 12",
+        "date": "2025-01-12",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 12"
+    },
+    {
+        "id": 13,
+        "title": "Entrenamiento 13",
+        "date": "2025-01-13",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 13"
+    },
+    {
+        "id": 14,
+        "title": "Entrenamiento 14",
+        "date": "2025-01-14",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 14"
+    },
+    {
+        "id": 15,
+        "title": "Entrenamiento 15",
+        "date": "2025-01-15",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 15"
+    },
+    {
+        "id": 16,
+        "title": "Entrenamiento 16",
+        "date": "2025-01-16",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 16"
+    },
+    {
+        "id": 17,
+        "title": "Entrenamiento 17",
+        "date": "2025-01-17",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 17"
+    },
+    {
+        "id": 18,
+        "title": "Entrenamiento 18",
+        "date": "2025-01-18",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 18"
+    },
+    {
+        "id": 19,
+        "title": "Entrenamiento 19",
+        "date": "2025-01-19",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 19"
+    },
+    {
+        "id": 20,
+        "title": "Entrenamiento 20",
+        "date": "2025-01-20",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 20"
+    },
+    {
+        "id": 21,
+        "title": "Entrenamiento 21",
+        "date": "2025-01-21",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 21"
+    },
+    {
+        "id": 22,
+        "title": "Entrenamiento 22",
+        "date": "2025-01-22",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 22"
+    },
+    {
+        "id": 23,
+        "title": "Entrenamiento 23",
+        "date": "2025-01-23",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 23"
+    },
+    {
+        "id": 24,
+        "title": "Entrenamiento 24",
+        "date": "2025-01-24",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 24"
+    },
+    {
+        "id": 25,
+        "title": "Entrenamiento 25",
+        "date": "2025-01-25",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 25"
+    },
+    {
+        "id": 26,
+        "title": "Entrenamiento 26",
+        "date": "2025-01-26",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 26"
+    },
+    {
+        "id": 27,
+        "title": "Entrenamiento 27",
+        "date": "2025-01-27",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 27"
+    },
+    {
+        "id": 28,
+        "title": "Entrenamiento 28",
+        "date": "2025-01-28",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 28"
+    },
+    {
+        "id": 29,
+        "title": "Entrenamiento 29",
+        "date": "2025-01-29",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 29"
+    },
+    {
+        "id": 30,
+        "title": "Entrenamiento 30",
+        "date": "2025-01-30",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 30"
+    },
+    {
+        "id": 31,
+        "title": "Entrenamiento 31",
+        "date": "2025-01-31",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 31"
+    },
+    {
+        "id": 32,
+        "title": "Entrenamiento 32",
+        "date": "2025-02-01",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 32"
+    },
+    {
+        "id": 33,
+        "title": "Entrenamiento 33",
+        "date": "2025-02-02",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 33"
+    },
+    {
+        "id": 34,
+        "title": "Entrenamiento 34",
+        "date": "2025-02-03",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 34"
+    },
+    {
+        "id": 35,
+        "title": "Entrenamiento 35",
+        "date": "2025-02-04",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 35"
+    },
+    {
+        "id": 36,
+        "title": "Entrenamiento 36",
+        "date": "2025-02-05",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 36"
+    },
+    {
+        "id": 37,
+        "title": "Entrenamiento 37",
+        "date": "2025-02-06",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 37"
+    },
+    {
+        "id": 38,
+        "title": "Entrenamiento 38",
+        "date": "2025-02-07",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 38"
+    },
+    {
+        "id": 39,
+        "title": "Entrenamiento 39",
+        "date": "2025-02-08",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 39"
+    },
+    {
+        "id": 40,
+        "title": "Entrenamiento 40",
+        "date": "2025-02-09",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 40"
+    },
+    {
+        "id": 41,
+        "title": "Entrenamiento 41",
+        "date": "2025-02-10",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 41"
+    },
+    {
+        "id": 42,
+        "title": "Entrenamiento 42",
+        "date": "2025-02-11",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 42"
+    },
+    {
+        "id": 43,
+        "title": "Entrenamiento 43",
+        "date": "2025-02-12",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 43"
+    },
+    {
+        "id": 44,
+        "title": "Entrenamiento 44",
+        "date": "2025-02-13",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 44"
+    },
+    {
+        "id": 45,
+        "title": "Entrenamiento 45",
+        "date": "2025-02-14",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 45"
+    },
+    {
+        "id": 46,
+        "title": "Entrenamiento 46",
+        "date": "2025-02-15",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 46"
+    },
+    {
+        "id": 47,
+        "title": "Entrenamiento 47",
+        "date": "2025-02-16",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 47"
+    },
+    {
+        "id": 48,
+        "title": "Entrenamiento 48",
+        "date": "2025-02-17",
+        "type": "flexibilidad",
+        "description": "Descripción del entrenamiento 48"
+    },
+    {
+        "id": 49,
+        "title": "Entrenamiento 49",
+        "date": "2025-02-18",
+        "type": "cardio",
+        "description": "Descripción del entrenamiento 49"
+    },
+    {
+        "id": 50,
+        "title": "Entrenamiento 50",
+        "date": "2025-02-19",
+        "type": "fuerza",
+        "description": "Descripción del entrenamiento 50"
+    }
+]

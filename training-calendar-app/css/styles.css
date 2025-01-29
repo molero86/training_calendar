@@ -1,0 +1,477 @@
+:root {
+    --primary-color: #c00d27;
+    --primary-light: #ff1f43;
+    --primary-dark: #a00920;
+    --background-color: #f2f2f7;
+    --card-background: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #6e6e73;
+    --border-radius: 12px;
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.container {
+    width: 100%;
+    max-width: 100%; /* Asegura que no se exceda el ancho de la pantalla */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna que ocupe todo el ancho */
+    gap: 20px;
+    width: 100%;
+    max-width: 100%; /* Asegura que no se exceda el ancho de la pantalla */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+@media (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr; /* Dos columnas en pantallas más grandes */
+    }
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%; /* Asegura que la tarjeta ocupe el 100% del contenedor */
+    max-width: 100%; /* Asegura que no se exceda el ancho de la pantalla */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días de la semana */
+    gap: 8px;
+    padding: 8px;
+    width: 100%; /* Asegura que el calendario ocupe el 100% del contenedor */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 8px;
+    color: var(--primary-color);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1; /* Mantiene una proporción cuadrada */
+    border-radius: 8px;
+    padding: 8px;
+    background: #f9f9f9;
+    transition: all 0.2s ease;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+.calendar-day:hover {
+    background: #f0f0f0;
+}
+
+.calendar-day-number {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Login styles */
+.login-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+.login-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e5e5ea;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: #f9f9f9;
+    appearance: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(192, 13, 39, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    color: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.list-item-button{
+    padding: 8px 14px !important;
+}
+
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%; /* Asegura que la tarjeta ocupe el 100% del contenedor */
+    max-width: 100%; /* Asegura que no se exceda el ancho de la pantalla */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    overflow: hidden; /* Evita que el contenido se desborde */
+    margin: 0 auto;
+}
+
+.card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+/* Calendar */
+.calendar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    width: 100%; /* Asegura que el calendario ocupe el 100% del contenedor */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+.calendar-header {
+    background-color: transparent !important;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.calendar-day {
+    flex: 1 0 calc(14.28% - 8px); /* Cada día ocupa un séptimo del ancho disponible menos el gap */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1; /* Mantiene una proporción cuadrada */
+    border-radius: 8px;
+    padding: 8px;
+    background: #f9f9f9;
+    transition: all 0.2s ease;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+.calendar-day:hover {
+    background: #f0f0f0;
+}
+
+.calendar-day-number {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.training-item {
+    padding: 4px 5px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.training-item.cardio { 
+    background-color: #e8f3ff;
+    color: #0066cc;
+}
+.training-item.strength { 
+    background-color: #ffeef0;
+    color: var(--primary-color);
+}
+.training-item.flexibility { 
+    background-color: #e8f7ef;
+    color: #248a3d;
+}
+.training-item.mixed { 
+    background-color: #f2e8ff;
+    color: #5856d6;
+}
+
+.training-item.completed { 
+    opacity: 0.6; 
+}
+
+/* Training List */
+.training-list {
+    margin-top: 16px;
+}
+
+.training-list-item {
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.training-list-item:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+.training-info {
+    flex: 1;
+}
+
+.training-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.training-meta {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.training-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1.5px solid #e5e5ea;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.action-button.complete {
+    color: #30d158;
+    border-color: #30d158;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 500px;
+    margin: 40px auto;
+    position: relative;
+    animation: modalSlideUp 0.3s ease;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    margin-bottom: 24px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close:hover {
+    background: #e0e0e0;
+}
+
+/* Add Training Button */
+.add-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(192, 13, 39, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.add-button:hover {
+    transform: scale(1.05);
+    background: var(--primary-light);
+}
+
+/* iOS Status Bar */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(192,13,39,1) 0%, rgba(158,12,33,1) 50%);
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.load-json-button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 30px;
+    position: absolute;
+    right: 15px;
+}
+
+.load-json-button i {
+    font-size: 20px;
+}
+
+.load-json-button:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
