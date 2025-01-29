@@ -475,3 +475,28 @@ button:hover {
 .hidden {
     display: none;
 }
+
+.update-notification {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.update-notification button {
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.update-notification button:hover {
+    background-color: #f1f1f1;
+}
