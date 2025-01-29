@@ -9,16 +9,6 @@ const trainingTypes = [
     { value: 'mixto', text: 'Mixto', backgroundColor: '#f2e8ff', textColor: '#5856d6' }
 ];
 
-// Gestión de login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    // Aquí iría la lógica de autenticación
-    // Si la autenticación es exitosa:
-    document.getElementById('loginContainer').style.display = 'none';
-    document.getElementById('appContainer').style.display = 'block';
-    document.getElementById('loadJsonButton').classList.remove('hidden');
-});
-
 // Función para guardar los entrenamientos en localStorage
 function saveTrainings() {
     localStorage.setItem('trainings', JSON.stringify(trainings));
@@ -303,6 +293,65 @@ document.getElementById('addTrainingForm').addEventListener('submit', function(e
     this.reset();
 });
 
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+    setTimeout(() => {
+        toast.className = toast.className.replace(`show ${type}`, '');
+    }, 3000);
+}
+
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('registerUsername').value;
+    const password = document.getElementById('registerPassword').value;
+
+    if (localStorage.getItem(username)) {
+        showToast('El usuario ya existe', 'error');
+        return;
+    }
+
+    const encryptedPassword = btoa(password); // Encriptar la contraseña
+    localStorage.setItem(username, encryptedPassword);
+    showToast('Usuario registrado correctamente', 'success');
+    showLogin();
+});
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+
+    const storedPassword = localStorage.getItem(username);
+    if (storedPassword && storedPassword === btoa(password)) {
+        showToast('Inicio de sesión exitoso', 'success');
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'block';
+
+        if (rememberMe) {
+            localStorage.setItem('savedUsername', username);
+            localStorage.setItem('savedPassword', storedPassword);
+        } else {
+            localStorage.removeItem('savedUsername');
+            localStorage.removeItem('savedPassword');
+        }
+    } else {
+        showToast('Usuario o contraseña incorrectos', 'error');
+    }
+});
+
+function showRegister() {
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('registerContainer').style.display = 'flex';
+}
+
+function showLogin() {
+    document.getElementById('registerContainer').style.display = 'none';
+    document.getElementById('loginContainer').style.display = 'flex';
+}
+
 // Cerrar modal al hacer clic fuera
 window.onclick = function(event) {
     const modal = document.getElementById('addTrainingModal');
@@ -316,15 +365,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     renderTrainingList();
     calculateStatistics();
+
+    // Verificar si hay credenciales guardadas para login automático
+    const savedUsername = localStorage.getItem('savedUsername');
+    const savedPassword = localStorage.getItem('savedPassword');
+    if (savedUsername && savedPassword) {
+        autoLogin(savedUsername, savedPassword);
+    }
 });
 
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.className = 'toast show';
-    setTimeout(() => {
-        toast.className = toast.className.replace('show', '');
-    }, 3000);
+function autoLogin(username, password) {
+    const storedPassword = localStorage.getItem(username);
+    if (storedPassword && storedPassword === password) {
+        showToast('Inicio de sesión automático exitoso', 'success');
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'block';
+    }
 }
 
 document.getElementById('loadJsonButton').addEventListener('click', function() {
@@ -342,7 +398,7 @@ document.getElementById('loadJsonButton').addEventListener('click', function() {
                 renderCalendar();
                 renderTrainingList();
                 calculateStatistics();
-                showToast('Entrenamientos cargados correctamente');
+                showToast('Entrenamientos cargados correctamente', 'success');
             };
             reader.readAsText(file);
         }
@@ -357,7 +413,7 @@ document.getElementById('deleteAllButton').addEventListener('click', function() 
         renderCalendar();
         renderTrainingList();
         calculateStatistics();
-        showToast('Todos los entrenamientos han sido eliminados');
+        showToast('Todos los entrenamientos han sido eliminados', 'success');
     }
 });
 
@@ -452,4 +508,20 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     renderTrainingList();
     calculateStatistics();
+
+    // Verificar si hay credenciales guardadas para login automático
+    const savedUsername = localStorage.getItem('savedUsername');
+    const savedPassword = localStorage.getItem('savedPassword');
+    if (savedUsername && savedPassword) {
+        autoLogin(savedUsername, savedPassword);
+    }
 });
+
+function autoLogin(username, password) {
+    const storedPassword = localStorage.getItem(username);
+    if (storedPassword && storedPassword === password) {
+        showToast('Inicio de sesión automático exitoso', 'success');
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'block';
+    }
+}

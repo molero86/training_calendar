@@ -27,13 +27,39 @@
             </div>
             <form id="loginForm">
                 <div class="form-group">
-                    <input type="text" id="username" placeholder="Usuario" required>
+                    <input type="text" id="loginUsername" placeholder="Usuario" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" placeholder="Contraseña" required>
+                    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="rememberMe"> Recordarme
+                    </label>
                 </div>
                 <button type="submit">Iniciar Sesión</button>
             </form>
+            <p>¿No tienes una cuenta? <a href="#" onclick="showRegister()">Regístrate</a></p>
+        </div>
+    </div>
+
+    <!-- Register -->
+    <div id="registerContainer" class="login-container" style="display: none;">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Training App</h1>
+                <p>Regístrate para continuar</p>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="text" id="registerUsername" placeholder="Usuario" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+            <p>¿Ya tienes una cuenta? <a href="#" onclick="showLogin()">Inicia sesión</a></p>
         </div>
     </div>
 
