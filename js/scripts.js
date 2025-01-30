@@ -441,11 +441,37 @@ function showScreen(screenId, tabId) {
     }
 }
 
-function calculateStatistics() {
-    const totalTrainings = trainings.length;
-    const completedTrainings = trainings.filter(training => training.completed).length;
+function calculateStatistics(period = 'week') {
+    const now = new Date();
+    let filteredTrainings = [];
 
-    const trainingsByType = trainings.reduce((acc, training) => {
+    if (period === 'week') {
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1));
+        const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));
+        filteredTrainings = trainings.filter(training => {
+            const trainingDate = new Date(training.date);
+            return trainingDate >= startOfWeek && trainingDate <= endOfWeek;
+        });
+    } else if (period === 'month') {
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        filteredTrainings = trainings.filter(training => {
+            const trainingDate = new Date(training.date);
+            return trainingDate >= startOfMonth && trainingDate <= endOfMonth;
+        });
+    } else if (period === 'year') {
+        const startOfYear = new Date(now.getFullYear(), 0, 1);
+        const endOfYear = new Date(now.getFullYear(), 11, 31);
+        filteredTrainings = trainings.filter(training => {
+            const trainingDate = new Date(training.date);
+            return trainingDate >= startOfYear && trainingDate <= endOfYear;
+        });
+    }
+
+    const totalTrainings = filteredTrainings.length;
+    const completedTrainings = filteredTrainings.filter(training => training.completed).length;
+
+    const trainingsByType = filteredTrainings.reduce((acc, training) => {
         acc[training.type] = acc[training.type] || { total: 0, completed: 0 };
         acc[training.type].total += 1;
         if (training.completed) {
@@ -455,7 +481,7 @@ function calculateStatistics() {
     }, {});
 
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    const trainingsByMonth = trainings.reduce((acc, training) => {
+    const trainingsByMonth = filteredTrainings.reduce((acc, training) => {
         const month = new Date(training.date).getMonth();
         acc[month] = acc[month] || { total: 0, completed: 0 };
         acc[month].total += 1;
@@ -465,13 +491,13 @@ function calculateStatistics() {
         return acc;
     }, {});
 
-    const totalCompletedDuration = trainings.reduce((acc, training) => {
+    const totalCompletedDuration = filteredTrainings.reduce((acc, training) => {
         return acc + (training.completed ? parseFloat(training.duration || 0) : 0);
     }, 0);
 
     const averageDuration = (totalCompletedDuration / completedTrainings).toFixed(2);
 
-    const weeks = new Set(trainings.map(training => {
+    const weeks = new Set(filteredTrainings.map(training => {
         const date = new Date(training.date);
         const startOfYear = new Date(date.getFullYear(), 0, 1);
         const weekNumber = Math.ceil((((date - startOfYear) / 86400000) + startOfYear.getDay() + 1) / 7);
@@ -589,5 +615,27 @@ function showScreen(screenId, tabId) {
     // Calcular estadísticas si se muestra la pantalla de estadísticas
     if (screenId === 'statsScreen') {
         calculateStatistics();
+    }
+}
+
+function changeStatsTab(tabId) {
+    switch(tabId){
+        case 'week':
+            document.getElementById('stats-tab-week').classList.add('active-stats-tab');
+            document.getElementById('stats-tab-month').classList.remove('active-stats-tab');
+            document.getElementById('stats-tab-year').classList.remove('active-stats-tab');
+            calculateStatistics('week');
+            break;
+        case 'month':
+            document.getElementById('stats-tab-week').classList.remove('active-stats-tab');
+            document.getElementById('stats-tab-month').classList.add('active-stats-tab');
+            document.getElementById('stats-tab-year').classList.remove('active-stats-tab');
+            calculateStatistics('month');
+            break;
+        case 'year':
+            document.getElementById('stats-tab-week').classList.remove('active-stats-tab');
+            document.getElementById('stats-tab-month').classList.remove('active-stats-tab');
+            document.getElementById('stats-tab-year').classList.add('active-stats-tab');
+            calculateStatistics('year');
     }
 }

@@ -101,6 +101,11 @@
         <div id="statsScreen" class="screen" style="display: none;">
             <div class="card">
                 <h2>Estadísticas de Entrenamientos</h2>
+                <div class="stats-tabs">
+                    <h3 id="stats-tab-week" class="stats-tab active-stats-tab"  onclick="changeStatsTab('week')">Semana</h3>
+                    <h3 id="stats-tab-month" class="stats-tab" onclick="changeStatsTab('month')">Mes</h3>
+                    <h3 id="stats-tab-year" class="stats-tab" onclick="changeStatsTab('year')">Año</h3>
+                </div>
                 <div id="statsContent">
                     <div class="stat-item">
                         <p>Total de Entrenamientos:</p>
