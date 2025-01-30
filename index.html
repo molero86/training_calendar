@@ -119,15 +119,23 @@
                         <p>Entrenamientos por Mes:</p>
                         <ul id="trainingsByMonth" class="stat-list"></ul>
                     </div>
-                    <div class="stat-item">
-                        <p>Duración Total de Entrenamientos:</p>
+                    <div class="stat-item half-width">
+                        <p>Duración Total:</p>
                         <span id="totalDuration" class="stat-value"></span>
                     </div>
-                    <div class="stat-item">
-                        <p>Duración Media de Entrenamientos:</p>
+                    <div class="stat-item half-width">
+                        <p>Km Totales:</p>
+                        <span id="totalKilometers" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item half-width">
+                        <p>Duración Media::</p>
                         <span id="averageDuration" class="stat-value"></span>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item half-width">
+                        <p>Km Media::</p>
+                        <span id="averageKilometers" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item" style="clear: both;">
                         <p>Promedio de Entrenamientos por Semana:</p>
                         <span id="averageTrainingsPerWeek" class="stat-value"></span>
                     </div>
@@ -182,11 +190,14 @@
                 </div>
                 <div class="form-group">
                     <select id="trainingType" required>
-                        <!-- Las opciones se generarán dinámicamente -->
+                        <!-- Options will be generated dinamically -->
                     </select>
                 </div>
                 <div class="form-group">
                     <input type="number" step="0.1" id="trainingDuration" placeholder="Duración (h)" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" step="0.1" id="trainingKilometers" placeholder="Distancia (Km)" required>
                 </div>
                 <div class="form-group">
                     <textarea id="trainingDescription" placeholder="Descripción" rows="3"></textarea>

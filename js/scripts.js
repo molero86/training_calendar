@@ -203,12 +203,14 @@ function openEditModal(training) {
     const trainingDescriptionInput = document.getElementById('trainingDescription');
     const trainingTypeSelect = document.getElementById('trainingType');
     const trainingDurationInput = document.getElementById('trainingDuration');
+    const trainingKilometersInput = document.getElementById('trainingKilometers');
 
     trainingDateInput.value = training.date;
     trainingTitleInput.value = training.title;
     trainingDescriptionInput.value = training.description;
     trainingTypeSelect.value = training.type;
     trainingDurationInput.value = training.duration;
+    trainingKilometersInput.value = training.kilometers;
 
     editingTrainingId = training.id;
 
@@ -240,12 +242,14 @@ function openModal(date) {
     const trainingDescriptionInput = document.getElementById('trainingDescription');
     const trainingTypeSelect = document.getElementById('trainingType');
     const trainingDurationInput = document.getElementById('trainingDuration');
+    const trainingKilometersInput = document.getElementById('trainingKilometers');
 
     trainingDateInput.value = date || '';
     trainingTitleInput.value = '';
     trainingDescriptionInput.value = '';
     trainingTypeSelect.value = '';
     trainingDurationInput.value = '';
+    trainingKilometersInput.value = '';
 
     editingTrainingId = null;
 
@@ -268,6 +272,7 @@ document.getElementById('addTrainingForm').addEventListener('submit', function(e
             type: document.getElementById('trainingType').value,
             description: document.getElementById('trainingDescription').value,
             duration: document.getElementById('trainingDuration').value,
+            kilometers: document.getElementById('trainingKilometers').value,
             completed: trainings.find(t => t.id === editingTrainingId).completed
         };
         updateTraining(updatedTraining);
@@ -281,6 +286,7 @@ document.getElementById('addTrainingForm').addEventListener('submit', function(e
             type: document.getElementById('trainingType').value,
             description: document.getElementById('trainingDescription').value,
             duration: document.getElementById('trainingDuration').value,
+            kilometers: document.getElementById('trainingKilometers').value,
             completed: false
         };
         
@@ -495,7 +501,12 @@ function calculateStatistics(period = 'week') {
         return acc + (training.completed ? parseFloat(training.duration || 0) : 0);
     }, 0);
 
+    const totalCompletedKilometers = filteredTrainings.reduce((acc, training) => {
+        return acc + (training.completed ? parseFloat(training.kilometers || 0) : 0);
+    }, 0);
+
     const averageDuration = (totalCompletedDuration / completedTrainings).toFixed(2);
+    const averageKilometers = (totalCompletedKilometers / completedTrainings).toFixed(2);
 
     const weeks = new Set(filteredTrainings.map(training => {
         const date = new Date(training.date);
@@ -512,7 +523,9 @@ function calculateStatistics(period = 'week') {
     document.getElementById('trainingsByMonth').innerHTML = Object.entries(trainingsByMonth)
         .map(([month, counts]) => `<li>${monthNames[month]}: ${counts.completed} / ${counts.total}</li>`).join('');
     document.getElementById('totalDuration').textContent = `${totalCompletedDuration.toFixed(2)} horas`;
+    document.getElementById('totalKilometers').textContent = `${totalCompletedKilometers.toFixed(2)} km`;
     document.getElementById('averageDuration').textContent = `${averageDuration} horas`;
+    document.getElementById('averageKilometers').textContent = `${averageKilometers} km`;
     document.getElementById('averageTrainingsPerWeek').textContent = averageTrainingsPerWeek;
 }
 

@@ -571,6 +571,11 @@ p a:hover {
     margin-bottom: 20px;
 }
 
+.stat-item.half-width {
+    width: 50%;
+    float: left;
+}
+
 .stat-item p {
     font-size: 16px;
     font-weight: 600;
