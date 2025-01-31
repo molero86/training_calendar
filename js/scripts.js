@@ -3,10 +3,14 @@ let trainings = JSON.parse(localStorage.getItem('trainings')) || [];
 
 // Array con los tipos de entrenamiento y sus colores
 const trainingTypes = [
-    { value: 'cardio', text: 'Cardio', backgroundColor: '#e8f3ff', textColor: '#0066cc' },
-    { value: 'fuerza', text: 'Fuerza', backgroundColor: '#ffeef0', textColor: '#c00d27' },
-    { value: 'flexibilidad', text: 'Flexibilidad', backgroundColor: '#e8f7ef', textColor: '#248a3d' },
-    { value: 'mixto', text: 'Mixto', backgroundColor: '#f2e8ff', textColor: '#5856d6' }
+    { value: 'running', text: 'Correr', backgroundColor: '#e8f3ff', textColor: '#0066cc' },
+    { value: 'strengthSup', text: 'Fuerza tren superior', backgroundColor: '#ffeef0', textColor: '#c00d27' },
+    { value: 'strengthInf', text: 'Fuerza tren inferior', backgroundColor: '#e8f7ef', textColor: '#248a3d' },
+    { value: 'staticCycle', text: 'Bicicleta Estática', backgroundColor: '#f2e8ff', textColor: '#5856d6' },
+    { value: 'mountainBike', text: 'Bicicleta de montaña', backgroundColor: '#fff3e8', textColor: '#cc6600' },
+    { value: 'dinamycYoga', text: 'Yoga dinámico', backgroundColor: '#e8fff3', textColor: '#00cc66' },
+    { value: 'relaxedYoga', text: 'Yoga de relajación', backgroundColor: '#f3e8ff', textColor: '#9900cc' },
+    { value: 'stretching', text: 'Estiramientos', backgroundColor: '#e8f3ff', textColor: '#0033cc' },
 ];
 
 // Función para guardar los entrenamientos en localStorage
@@ -89,8 +93,14 @@ function renderCalendar() {
             trainingElement.textContent = training.title.slice(0, 1);
 
             const { backgroundColor, textColor } = getTrainingTypeColors(training.type);
-            trainingElement.style.backgroundColor = backgroundColor;
-            trainingElement.style.color = textColor;
+            if(training.completed) {
+                trainingElement.style.backgroundColor = textColor;
+                trainingElement.style.color = backgroundColor;
+            }
+            else{
+                trainingElement.style.backgroundColor = backgroundColor;
+                trainingElement.style.color = textColor;
+            }
 
             day.appendChild(trainingElement);
         });
@@ -149,7 +159,10 @@ function renderTrainingList() {
         return parseInt(year) === currentYear && parseInt(month) === currentMonth + 1;
     });
 
-    if(currentMonthTrainings.length === 0) {
+    // Ordenar los entrenamientos por fecha de mayor a menor
+    currentMonthTrainings.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    if (currentMonthTrainings.length === 0) {
         const emptyMessage = document.createElement('div');
         emptyMessage.textContent = 'No hay entrenamientos este mes';
         list.appendChild(emptyMessage);
@@ -159,16 +172,18 @@ function renderTrainingList() {
         const item = document.createElement('div');
         item.addEventListener('click', () => openEditModal(training));
         item.className = 'training-list-item';
-        
+
         const info = document.createElement('div');
         info.innerHTML = `
             <strong>${training.title}</strong><br>
-            <small>${training.date} - ${training.type}</small>
+            <small>${formatDate(training.date)} - ${training.type}</small><br>
+            ${training.duration ? `<small><b>Duración:</b> ${training.duration} horas</small><br>` : ''}
+            ${training.km ? `<small><b>Kilómetros:</b> ${training.km} km</small>` : ''}
         `;
 
         const actions = document.createElement('div');
         actions.className = 'training-actions';
-        
+
         const completeButton = document.createElement('button');
         completeButton.textContent = training.completed ? '✓' : '○';
         completeButton.onclick = (e) => {
@@ -222,6 +237,7 @@ function toggleComplete(id) {
     trainings = trainings.map(training =>
         training.id === id ? {...training, completed: !training.completed} : training
     );
+
     saveTrainings();
     renderCalendar();
     renderTrainingList();
@@ -651,4 +667,12 @@ function changeStatsTab(tabId) {
             document.getElementById('stats-tab-year').classList.add('active-stats-tab');
             calculateStatistics('year');
     }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
 }

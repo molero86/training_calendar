@@ -287,23 +287,6 @@ p a:hover {
     transition: all 0.2s ease;
 }
 
-.training-item.cardio { 
-    background-color: #e8f3ff;
-    color: #0066cc;
-}
-.training-item.strength { 
-    background-color: #ffeef0;
-    color: var(--primary-color);
-}
-.training-item.flexibility { 
-    background-color: #e8f7ef;
-    color: #248a3d;
-}
-.training-item.mixed { 
-    background-color: #f2e8ff;
-    color: #5856d6;
-}
-
 .training-item.completed { 
     opacity: 0.6; 
 }
