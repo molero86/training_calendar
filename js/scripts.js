@@ -3,14 +3,15 @@ let trainings = JSON.parse(localStorage.getItem('trainings')) || [];
 
 // Array con los tipos de entrenamiento y sus colores
 const trainingTypes = [
-    { value: 'running', text: 'Correr', backgroundColor: '#e8f3ff', textColor: '#0066cc' },
-    { value: 'strengthSup', text: 'Fuerza tren superior', backgroundColor: '#ffeef0', textColor: '#c00d27' },
-    { value: 'strengthInf', text: 'Fuerza tren inferior', backgroundColor: '#e8f7ef', textColor: '#248a3d' },
-    { value: 'staticCycle', text: 'Bicicleta Estática', backgroundColor: '#f2e8ff', textColor: '#5856d6' },
-    { value: 'mountainBike', text: 'Bicicleta de montaña', backgroundColor: '#fff3e8', textColor: '#cc6600' },
-    { value: 'dinamycYoga', text: 'Yoga dinámico', backgroundColor: '#e8fff3', textColor: '#00cc66' },
-    { value: 'relaxedYoga', text: 'Yoga de relajación', backgroundColor: '#f3e8ff', textColor: '#9900cc' },
-    { value: 'stretching', text: 'Estiramientos', backgroundColor: '#e8f3ff', textColor: '#0033cc' },
+    { value: 'running', text: 'Correr', backgroundColor: '#fff8e8', textColor: '#f9b20f' },
+    { value: 'strengthSup', text: 'Fuerza tren superior', backgroundColor: '#fcc7c7', textColor: '#b30909' },
+    { value: 'strengthInf', text: 'Fuerza tren inferior', backgroundColor: '#fcc7c7', textColor: '#b30909' },
+    { value: 'staticCycle', text: 'Bicicleta Estática', backgroundColor: '#d3baf8', textColor: '#4f09b3' },
+    { value: 'mountainBike', text: 'Bicicleta de montaña', backgroundColor: '#bef8ba', textColor: '#10650a' },
+    { value: 'dinamycYoga', text: 'Yoga dinámico', backgroundColor: '#bef7f7', textColor: '#15cbcb' },
+    { value: 'relaxedYoga', text: 'Yoga de relajación', backgroundColor: '#15cbcb', textColor: '#14a888' },
+    { value: 'stretching', text: 'Estiramientos', backgroundColor: '#fbddf1', textColor: '#cc0a8b' },
+    { value: 'runningTechnique', text: 'Técnica de carrera', backgroundColor: '#cc0a8b', textColor: '#92a405' },
 ];
 
 // Función para guardar los entrenamientos en localStorage
@@ -177,8 +178,8 @@ function renderTrainingList() {
         info.innerHTML = `
             <strong>${training.title}</strong><br>
             <small>${formatDate(training.date)} - ${training.type}</small><br>
-            ${training.duration ? `<small><b>Duración:</b> ${training.duration} horas</small><br>` : ''}
-            ${training.km ? `<small><b>Kilómetros:</b> ${training.km} km</small>` : ''}
+            ${training.duration ? `<small><b>Duración:</b> ${training.duration} minutos</small><br>` : ''}
+            ${training.kilometers ? `<small><b>Kilómetros:</b> ${training.kilometers} km</small>` : ''}
         `;
 
         const actions = document.createElement('div');
@@ -538,9 +539,9 @@ function calculateStatistics(period = 'week') {
         .map(([type, counts]) => `<li class="training-type" style="background-color: ${getTypeColor(type)}">${capitalize(type)}: ${counts.completed} / ${counts.total}</li>`).join('');
     document.getElementById('trainingsByMonth').innerHTML = Object.entries(trainingsByMonth)
         .map(([month, counts]) => `<li>${monthNames[month]}: ${counts.completed} / ${counts.total}</li>`).join('');
-    document.getElementById('totalDuration').textContent = `${totalCompletedDuration.toFixed(2)} horas`;
+    document.getElementById('totalDuration').textContent = `${totalCompletedDuration.toFixed(2)} minutos`;
     document.getElementById('totalKilometers').textContent = `${totalCompletedKilometers.toFixed(2)} km`;
-    document.getElementById('averageDuration').textContent = `${averageDuration} horas`;
+    document.getElementById('averageDuration').textContent = `${averageDuration} minutos`;
     document.getElementById('averageKilometers').textContent = `${averageKilometers} km`;
     document.getElementById('averageTrainingsPerWeek').textContent = averageTrainingsPerWeek;
 }
