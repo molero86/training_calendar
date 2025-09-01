@@ -140,6 +140,19 @@ function prevMonth() {
     renderTrainingList();
 }
 
+document.getElementById('calendar').addEventListener('click', (e) => {
+  if (e.target.classList.contains('calendar-day')) {
+    const day = e.target.textContent.slice(0, -1).toString().padStart(2, '0');;
+    const month = document.getElementById('calendarMonth').textContent.split(' ')[0];
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const monthNumber = (months.indexOf(month) + 1).toString().padStart(2, '0');
+    const year = document.getElementById('calendarMonth').textContent.split(' ')[1];
+    const date = `${year}-${monthNumber}-${day}`;
+    const trainingsOfDay = trainings.filter(training => training.date === date);
+    renderTrainingList(trainingsOfDay);
+  }
+})
+
 function nextMonth() {
     currentMonth++;
     if (currentMonth > 11) {
@@ -151,25 +164,28 @@ function nextMonth() {
 }
 
 // Funciones de la lista de entrenamientos
-function renderTrainingList() {
+function renderTrainingList(trainingsToRender) {
     const list = document.getElementById('trainingList');
     list.innerHTML = '';
 
-    const currentMonthTrainings = trainings.filter(training => {
-        const [year, month] = training.date.split('-');
-        return parseInt(year) === currentYear && parseInt(month) === currentMonth + 1;
-    });
+    if (!trainingsToRender)
+    {
+        trainingsToRender = trainings.filter(training => {
+            const [year, month] = training.date.split('-');
+            return parseInt(year) === currentYear && parseInt(month) === currentMonth + 1;
+        });
+    }
 
     // Ordenar los entrenamientos por fecha de mayor a menor
-    currentMonthTrainings.sort((a, b) => new Date(b.date) - new Date(a.date));
+    trainingsToRender.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    if (currentMonthTrainings.length === 0) {
+    if (trainingsToRender.length === 0) {
         const emptyMessage = document.createElement('div');
         emptyMessage.textContent = 'No hay entrenamientos este mes';
         list.appendChild(emptyMessage);
     }
 
-    currentMonthTrainings.forEach(training => {
+    trainingsToRender.forEach(training => {
         const item = document.createElement('div');
         item.addEventListener('click', () => openEditModal(training));
         item.className = 'training-list-item';
